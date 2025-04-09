@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Lista de personajes de Rick and Morty
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Mostrar la lista de personajes si no se están viendo los episodios -->
+  <ion-list *ngIf="!showEpisodes">
+    <ion-item *ngFor="let character of characters">
+      <ion-thumbnail slot="start">
+        <img [src]="character.image" alt="{{ character.name }}">
+      </ion-thumbnail>
+      <ion-label>
+        <h2 (click)="onCharacterNameClick(character)" style="cursor: pointer; color: blue;">
+          {{ character.name }}
+        </h2>
+        <p>{{ character.species }} - {{ character.status }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mostrar la lista de episodios si se seleccionó un personaje -->
+  <ion-card *ngIf="showEpisodes">
+    <ion-card-header>
+      <ion-card-title>Episodios de {{ selectedCharacterName }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let episode of selectedCharacterEpisodes">
+          <ion-label>
+            <h2>{{ episode.name }}</h2>
+            <p>{{ episode.episode }} - {{ episode.air_date }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <!-- Botón para volver atrás -->
+      <ion-button expand="full" color="primary" (click)="onBackClick()">
+        Volver atrás
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
